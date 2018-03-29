@@ -26,5 +26,6 @@ with open('word length 4.csv', 'r') as csvfile:
 for w in list1:
     anaglist.append(jumbleword(w))
 
-print(anaglist)
+for anag in anaglist:
+    print(anag)
 
