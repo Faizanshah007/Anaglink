@@ -18,10 +18,9 @@ def jumbleword(wrd):
 anaglist = list()
 list1=[]
 with open('word length 4.csv', 'r') as csvfile:
-    rd = csv.reader(csvfile,delimiter=' ',quotechar='|')
+    rd = csv.reader(csvfile)
     for row in rd:
         list1.append(row[0])
-
 
 for w in list1:
     anaglist.append(jumbleword(w))
