@@ -1,11 +1,12 @@
 #To generate 25 phrases.
 
 from itertools import permutations
-from nltk.corpus import words
+import enchant
 import csv
 
 def meaningful(string):
-    return string in words.words()
+    d = enchant.Dict("en_US")
+    return d.check(string)
 
 def jumbleword(wrd):
     testset = set([''.join(p) for p in permutations(wrd)])
