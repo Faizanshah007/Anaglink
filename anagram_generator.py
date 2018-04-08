@@ -1,74 +1,27 @@
-#To generate 25 phrases.
-
-from itertools import permutations
-import enchant
+import random
 import csv
-
-d = enchant.Dict("en_US")
-
-def meaningful(string):
-    return d.check(string)
-
-def jumbleword(wrd):
-    testset = set([''.join(p) for p in permutations(wrd)])
-    anag = []
-    for case in testset:
-        if meaningful(case):
-            anag.append(case)
-    return anag
-
-anaglist = list()
-list1=[]
-list2=[]
-list3=[]
-with open('4-word.csv', 'r') as csvfile:
-    rd = csv.reader(csvfile)
-    for row in rd:
-        list1.append(row[0])
-csvfile.close()
-
-with open('5-word.csv', 'r') as csvfile:
-    rd = csv.reader(csvfile)
-    for row in rd:
-        list2.append(row[0])
-csvfile.close()
-
-with open('7-word.csv', 'r') as csvfile:
-    rd = csv.reader(csvfile)
-    for row in rd:
-        list3.append(row[0])
-csvfile.close()
-
-for w in list1:
-    anaglist.append(jumbleword(w))
-
-for w in list2:
-    print("ok")
-    anaglist.append(jumbleword(w))
-
-for w in list3:
-    anaglist.append(jumbleword(w))
+def produce():
+    '''anag_dict = {}
+    for ag in Pre_setup.get():
+        anag_dict[ag[0]] = len(ag)
+    print(anag_dict)'''
+    random_list = list()
+    with open('4-word.csv')as f:
+        wor = f.read().split()
+        for i in range(5):
+            chosen_row = random.choice(wor)
+            random_list.append(chosen_row)
+        
+    with open('5-word.csv')as f:
+        wor = f.read().split()
+        for i in range(10):
+            chosen_row = random.choice(wor)
+            random_list.append(chosen_row)
     
-anaglist.sort(key = len, reverse = True)
-
-'''with open('4-word.csv','w',newline='') as csvfile:
-    wt = csv.writer(csvfile)
-    for anag in anaglist:
-        wt.writerow([anag[0]])
-csvfile.close()
-
-with open('5-word.csv','w',newline='') as csvfile:
-    wt = csv.writer(csvfile)
-    for anag in anaglist:
-        wt.writerow([anag[0]])
-csvfile.close()
-
-with open('7-word.csv','w',newline='') as csvfile:
-    wt = csv.writer(csvfile)
-    for anag in anaglist:
-        wt.writerow([anag[0]])
-csvfile.close()'''
-
-for anag in anaglist:
-    print(anag)
+    with open('7-word.csv')as f:
+        wor = f.read().split()
+        for i in range(10):
+            chosen_row = random.choice(wor)
+            random_list.append(chosen_row)
+    return random_list
 
