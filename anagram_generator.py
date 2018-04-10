@@ -1,27 +1,21 @@
+import Pre_setup
 import random
 import csv
 def produce():
-    '''anag_dict = {}
-    for ag in Pre_setup.get():
-        anag_dict[ag[0]] = len(ag)
-    print(anag_dict)'''
+    size = 0
+    anag = Pre_setup.get()
     random_list = list()
-    with open('4-word.csv')as f:
-        wor = f.read().split()
-        for i in range(5):
-            chosen_row = random.choice(wor)
-            random_list.append(chosen_row)
-        
-    with open('5-word.csv')as f:
-        wor = f.read().split()
-        for i in range(10):
-            chosen_row = random.choice(wor)
-            random_list.append(chosen_row)
+    while( size <= 25 ):
+        rnd = random.choice(anag)
+        anag.remove(rnd)
+        for r in rnd:
+            if( size > 25 ):
+                break
+            random_list.append(r)
+            size = size + 1
+    random.shuffle(random_list)     
+    print(random_list)
+
     
-    with open('7-word.csv')as f:
-        wor = f.read().split()
-        for i in range(10):
-            chosen_row = random.choice(wor)
-            random_list.append(chosen_row)
     return random_list
 

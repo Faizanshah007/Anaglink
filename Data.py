@@ -1,5 +1,5 @@
-import anagram_generator
-import Pre_setup
+#import Pre_setup
+from anagram_generator import *
 import pygame
 from pygame.locals import *
 import sys
@@ -13,7 +13,7 @@ pygame.init()
 #Anagram Data
 
 anagpool   = Pre_setup.get()
-anagselec  = anagram_generator.produce()
+anagselec  = produce()
 multiplier = 0
 
 
@@ -26,6 +26,7 @@ window_height = int(window_width*0.5)#max - 768
 
 txtfont1 = pygame.font.SysFont("Copperplate Gothic", int((3/140)*window_height), True, True)
 txtfont2 = pygame.font.SysFont("Copperplate Gothic", int((1/14)*window_height), True, True)
+txtfont3 = pygame.font.SysFont("Copperplate Gothic", int((1/25)*window_height), True, True)
 
 # Colors
 
@@ -33,6 +34,7 @@ white  = (255,255,255)
 cyan   = (0, 255, 255)
 blue   = (0,0,255)
 black  = (0,0,0)
+orange = (255, 165, 0)
 green  = (0,255,0)
 red    = (255,0,0)
 yellow = (255,255,0)
