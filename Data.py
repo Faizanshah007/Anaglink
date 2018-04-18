@@ -5,6 +5,11 @@ from pygame.locals import *
 import sys
 import time
 
+#List of Linked words
+lnkdlist = pygame.sprite.Group()
+#List of buttons
+buttonlist = pygame.sprite.Group()
+
 #Initializing Pygame
 
 pygame.init()
@@ -64,5 +69,26 @@ def drawtext(text,font,surface,x,y,colour = black):
     textrect = textobj.get_rect()
     textrect.topleft = (x,y)
     surface.blit(textobj, textrect)
+
+# Answers
+
+def ansGen():
+    ans = list()
+    sub = list()
+    a = list()
+    for tp in anagpool:
+        sub.clear()
+        for wrd in anagselec:
+            if(wrd in tp):
+                sub.append(wrd)
+        a = sub[:]
+
+        if(len(a)>1):
+            ans.append(a)
+
+    return(ans)
+
+ans = ansGen()
+
 
 

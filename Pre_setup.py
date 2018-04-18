@@ -74,4 +74,7 @@ csvfile2.close()
 csvfile3.close()
 
 def get():
-    return anaglist
+    st = set()
+    for anag in anaglist:
+        st.add(tuple(anag))
+    return st
