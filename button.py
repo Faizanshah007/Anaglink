@@ -1,8 +1,8 @@
 from Data import *
 bwidth  = 136
 bheight = int(bwidth*19/68)
-hoversound = pygame.mixer.Sound('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\hover.wav')
-clicksound = pygame.mixer.Sound('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\click.wav')
+hoversound = pygame.mixer.Sound(os.path.join(root_dir, "Anagram", "Media", "hover.wav"))
+clicksound = pygame.mixer.Sound(os.path.join(root_dir, "Anagram", "Media", "click.wav"))
 
 def clicked():
 
@@ -23,6 +23,9 @@ def check_lnk():
     lst = list()
     for obj in lnkdlist:
         lst.append(obj.value)
+    for l in lst:
+        if([l] in ignorelist and len(lst)>1):
+            return False
     for a in ans:
         if(set(a) == set(lst)):
             ans.remove(a)

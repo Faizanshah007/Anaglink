@@ -1,9 +1,9 @@
-#import Pre_setup
 from anagram_generator import *
 import pygame
 from pygame.locals import *
 import sys
 import time
+import os
 
 #List of Linked words
 lnkdlist = pygame.sprite.Group()
@@ -13,6 +13,10 @@ buttonlist = pygame.sprite.Group()
 #Initializing Pygame
 
 pygame.init()
+
+#Path
+
+root_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
 #Anagram Data
@@ -29,8 +33,8 @@ window_height = int(window_width*0.5)#max - 768
 
 # Fonts
 
-txtfont1 = pygame.font.SysFont("Copperplate Gothic", int((3/140)*window_height), True, True)
-txtfont2 = pygame.font.SysFont("Copperplate Gothic", int((1/14)*window_height), True, True)
+txtfont1 = pygame.font.SysFont("Courier New", int((1/20)*window_height), True, True)
+txtfont2 = pygame.font.SysFont("Harlow Solid", int((1/20)*window_height), False, True)
 txtfont3 = pygame.font.SysFont("Copperplate Gothic", int((1/25)*window_height), True, True)
 
 # Colors
@@ -72,6 +76,8 @@ def drawtext(text,font,surface,x,y,colour = black):
 
 # Answers
 
+ignorelist = list()
+
 def ansGen():
     ans = list()
     sub = list()
@@ -82,6 +88,9 @@ def ansGen():
             if(wrd in tp):
                 sub.append(wrd)
         a = sub[:]
+
+        if(len(a)==1):
+            ignorelist.append(a)
 
         if(len(a)>1):
             ans.append(a)

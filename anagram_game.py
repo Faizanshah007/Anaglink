@@ -5,30 +5,32 @@ stat = 'None'
 #mainClock = pygame.time.Clock()
 
 pygame.display.set_caption("Anaglink")
-Canvas = pygame.display.set_mode((window_width,window_height))#,pygame.FULLSCREEN)
+Canvas = pygame.display.set_mode((window_width,window_height))#,pygame.FULLSCREEN)pygame.HWSURFACE)
 
 
 subsurface = Canvas.subsurface((0,0,window_width, (1/5)*window_height))
 
-pygame.mixer.music.load('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\main.wav')
+pygame.mixer.music.load(os.path.join(root_dir, "Anagram", "Media", "main.wav"))
 
-loosemusic = pygame.mixer.Sound('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\game_over.wav')
-winmusic = pygame.mixer.Sound('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\winner.wav')
+loosemusic = pygame.mixer.Sound(os.path.join(root_dir, "Anagram", "Media", "game_over.wav"))
+winmusic = pygame.mixer.Sound(os.path.join(root_dir, "Anagram", "Media", "winner.wav"))
+linkedmusic = pygame.mixer.Sound(os.path.join(root_dir, "Anagram", "Media", "anaglinked.wav"))
+incorrectmusic = pygame.mixer.Sound(os.path.join(root_dir, "Anagram", "Media", "incorrect.wav"))
+fewsecsound = pygame.mixer.Sound(os.path.join(root_dir, "Anagram", "Media", "fewsecleft.wav"))
 
-#startimage = pygame.image.load('C:\\Users\\geniu\\Desktop\\Python Mini project\\Anagram\\Media\\start.jpg')
-startimage = pygame.image.load('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\start.jpg')
+startimage = pygame.image.load(os.path.join(root_dir, "Anagram", "Media", "start.jpg"))
 startimage = pygame.transform.scale( startimage, ( window_width, window_height ) )
 startimagerect = startimage.get_rect()
 startimagerect.centerx = window_width/2
 startimagerect.centery = window_height/2
 
-lostimage = pygame.image.load('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\lost.jpg')
+lostimage = pygame.image.load(os.path.join(root_dir, "Anagram", "Media", "lost.jpg"))
 lostimage = pygame.transform.scale( lostimage, ( window_width, window_height ) )
 lostimagerect = startimage.get_rect()
 lostimagerect.centerx = window_width/2
 lostimagerect.centery = window_height/2
 
-wonimage = pygame.image.load('C:\\Users\\Raouf\\Desktop\\Python Mini project\\Anagram\\Media\\won.jpg')
+wonimage = pygame.image.load(os.path.join(root_dir, "Anagram", "Media", "won.jpg"))
 wonimage = pygame.transform.scale( wonimage, ( window_width, window_height ) )
 wonimagerect = startimage.get_rect()
 wonimagerect.centerx = window_width/2
@@ -66,6 +68,7 @@ plotter(anagselec)
 lnkdlist.empty()
 
 print(ans)
+print(ignorelist)
 
 pygame.mixer.music.play(-1,0.0)
 
@@ -73,11 +76,17 @@ pygame.mixer.music.play(-1,0.0)
 while True:
     
     Canvas.fill(black)
-    drawtext("SCORE : ", txtfont1, subsurface, (0.4)*window_width, window_height/25, white)
-    drawtext(" X5 ", txtfont2, subsurface, window_width*(3/4), window_height/25, white)
-    if( update_timer().width == 1 ):
+    drawtext("SCORE : 12150", txtfont1, subsurface, (0.4)*window_width, window_height/25, white)
+    drawtext(" X5 ", txtfont2, subsurface, window_width*(3/4), window_height/30, white)
+    a = update_timer().width
+    if( a == 1 ):
+        fewsecsound.stop()
         stat = 'Lost'
         break
+    
+    if( a == 100 ):
+        fewsecsound.play(-1)
+        
     if( ans == [] ):
         stat = 'Won'
         break
@@ -87,9 +96,11 @@ while True:
     Button.inout.clear()
     clicked()
     if(check_lnk()):
+        linkedmusic.play()
         buttonlist.remove(lnkdlist)
         lnkdlist.empty()
     elif(check_lnk() == False):
+        incorrectmusic.play()
         for l in lnkdlist:
             l.active = False
             l.wrong = True
@@ -97,8 +108,10 @@ while True:
 
 
     for event in pygame.event.get():
-        
-        if event.type == QUIT:
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                terminate()
+        if event.type == QUIT :
             terminate()
 
         #if event.type == pygame.MOUSEMOTION:
