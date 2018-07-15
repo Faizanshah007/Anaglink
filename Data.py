@@ -53,8 +53,9 @@ if "Data.py" not in sys.modules :
 
     #~Fonts
 
-    txtfont1 = pygame.font.SysFont("Courier New", int((1/10)*window_height), True, True)
-    txtfont2 = pygame.font.SysFont("Copperplate Gothic", int((1/25)*window_height), True, True)
+    font_dir = os.path.join(os.path.dirname(sys.argv[0]), 'Fonts')
+    txtfont1 = pygame.font.Font(os.path.join(font_dir, "Courier New", "COURBI.TTF"), int((1/13)*window_height))
+    txtfont2 = pygame.font.Font(os.path.join(font_dir, "Copperplate Gothic", "COPRGTB.TTF"), int((1/25)*window_height))
 
 
     #~Colors
