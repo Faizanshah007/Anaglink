@@ -1,10 +1,10 @@
 from anagram_generator import *
 from pygame.locals import *
-import sys
+import sys, time
 import pygame
 import os
 
-''' #~ - Variable's value not to be changed '''
+# "#~" - Variable's value not to be changed
 
 
 if "Data.py" not in sys.modules :
@@ -78,6 +78,8 @@ if "Data.py" not in sys.modules :
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     terminate()
+                if event.type ==  pygame.MOUSEBUTTONUP:
+                    return
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         terminate()
@@ -135,8 +137,8 @@ if "Data.py" not in sys.modules :
 
     # Bringing window to foreground
 
-    '''CODE IMPORTED FROM:
-       https://www.blog.pythonlibrary.org/2014/10/20/pywin32-how-to-bring-a-window-to-front/'''
+    #CODE IMPORTED FROM:
+    #https://www.blog.pythonlibrary.org/2014/10/20/pywin32-how-to-bring-a-window-to-front/'''
 
     import win32gui, win32com.client
 
