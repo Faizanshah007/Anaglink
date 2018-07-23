@@ -5,4 +5,4 @@ Helps to improve your vocabulary.
 
 Developed an LeaderBoard interface which could be used by and game.
 
-Download Anaglinks.rar for executable.
+Download Anaglinks.7z for executable.
