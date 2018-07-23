@@ -1,67 +1,89 @@
-from docx import Document
-from docx.shared import Inches
-from math import *
 from Data import *
-import win32com.client as win32
-import os, sys
+from math import *
 
-# creating a new document
+f = open('Summary.html','w')
 
-document = Document()
 
-document.add_heading('Game Summary', 0)
-document.add_paragraph("The words given to you were :")
+# Creating content for HTML document
 
-row = str()
+html1 = """
+<!DOCTYPE html>
+<html>
 
+<head>
+<title>Anaglink</title>
+</head>
+
+<style>
+p  { margin-bottom: 10px }
+h1 { margin-bottom: 40px }
+</style>
+
+<body bgcolor = "#7FFFD4">
+
+<h1 style = "font-size:35px"><u>Game Summary</u></h1>
+<p style = "font-size:20px"><b>The words given to you were :</b></p>
+
+<table>
+<col width = "70" >
+<col width = "70">
+<col width = "70">
+<col width = "70">
+<col width = "70">
+"""
+
+html2 = str()
 for i in range(5):
+    html2 = html2 + """<tr>"""
     for j in range(5):
-        if((i * 5 + j + 1) // 10 == 0):
-            row = row + "  "
-        row = row + str(i * 5 + j + 1) + ". " + str(anagselec[(i * 5 + j)]) + "\t"
-    paragraph = document.add_paragraph(row)
-    paragraph_format = paragraph.paragraph_format
-    tab_stops = paragraph_format.tab_stops
-    tab_stops.add_tab_stop(Inches(0.97))      # <- Dont loop this
-    tab_stops.add_tab_stop(Inches(2*0.97))
-    tab_stops.add_tab_stop(Inches(3*0.97))
-    tab_stops.add_tab_stop(Inches(4*0.97))
-    row = ""
+        html2 = html2 + """<td height = "30"><a href = "https://en.wiktionary.org/wiki/""" + str(anagselec[(i * 5 + j)]) + """">""" + str(anagselec[(i * 5 + j)]) + """</a></td>"""
+    html2 = html2 + """</tr>"""
 
-document.add_paragraph("\nFollowing anaglinks were present :")
+html3 = """
+</table>
 
+<br>
+<p style="font-size:20px"><b>Following anaglinks were present :</b></p>
+
+<p>
+
+"""
+
+html4 = str()
 for lnk in ans_copy:
     for anag in lnk:
-        row = row + " - " + anag
-    document.add_paragraph(row)
-    row = ""
+        html4 = html4 + """ - """ + anag
+    html4 = html4 + """ <br><br>\n """
 
-document.add_paragraph("\nYour current status : " + stat + ".")
+html5 = """
+</p>
 
-if( stat == 'Won' ):
-    document.add_paragraph("\nYou scored : " + str(Score) + ",  Which includes a time bonus : " + str(floor((60 - timer) * 0.5)))
+<p style="font-size:20px">
+<b>Your current status : 
+"""
+html5 = html5 + stat + """. <br></b> \n</p> \n\n """
 
-document.save('summary.docx')
+if( stat == "Won" ):
+    html5 = html5 + """
+<p style="font-size:15px">
+You scored : """ + str(Score) + """,  Which includes a time bonus : """ + str(floor((60 - timer) * 0.5)) + """ \n.</p> """
 
-filepath = os.path.join(os.path.dirname(sys.argv[0]), 'summary.docx')
+html5 = html5 + """
 
-wordApp = win32.Dispatch('Word.Application') #create a word application object
-wordApp.Visible = False # hide the word application
-doc = wordApp.Documents.Open(filepath)
+</body>
 
-#Adding hyperlink
+</html>
 
-for wrd in anagselec:
-    if wordApp.Selection.Find.Execute(FindText = wrd):
-        doc.Hyperlinks.Add(Anchor = wordApp.Selection.Range,  Address=("https://en.wiktionary.org/wiki/"+wrd))
-
-doc.Save()
-doc.Close()
-
-wordApp.Visible = True # unhide the word application
-doc = wordApp.Documents.Open(filepath, False, False, True)
-
-foregroundWindow("summary")
+"""
+    
+f.write(html1+html2+html3+html4+html5)
+f.close()
 
 
+# Executing HTML file in browser
 
+import webbrowser
+
+def runweb():
+    ie = webbrowser.get(webbrowser.iexplore)
+    ie.open(os.path.join(os.path.dirname(sys.argv[0]), "Summary.html"))

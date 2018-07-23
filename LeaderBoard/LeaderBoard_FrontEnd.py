@@ -43,8 +43,8 @@ class LeaderBoard(Frame):
                 self.cv.create_text(30,  15 * (3 * i + 1), text = "   " + str(i + 1), fill = "white", anchor = "w", font = ("Alfie", 10))
                 self.cv.create_text(82,  15 * (3 * i + 1), text = "|", anchor = "w", fill = "white", font = ("Alfie", 10))
                 self.cv.create_text(100, 15 * (3 * i + 1), text = str(info[2]), anchor = "w", fill = "white", font = ("Alfie", 10), width = 250)
-                self.cv.create_text(358, 15 * (3 * i + 1), text = "|                " + str(info[3]), fill = "white", anchor = "w", font = ("Alfie", 10))
-                self.cv.create_text(507, 15 * (3 * i + 1), text = "|           " + str(info[4]), anchor = "w", fill = "white", font = ("Alfie", 10))
+                self.cv.create_text(338, 15 * (3 * i + 1), text = "|             " + str(info[4]), fill = "white", anchor = "w", font = ("Alfie", 10))
+                self.cv.create_text(450, 15 * (3 * i + 1), text = "|               " + str(info[3]), anchor = "w", fill = "white", font = ("Alfie", 10))
 
                 if(i == 0 or i == 1 or i == 2):
 
@@ -121,9 +121,9 @@ class LeaderBoard(Frame):
         l1.grid(row = 0, column = 0, sticky = "W")
         l2 = Label(heading, bg = "#ffca18", text = "                           NAME                            ", anchor = "w", font = ('times', 11, 'bold'))
         l2.grid(row = 0, column = 1, sticky = "W",columnspan = 1)
-        l3 = Label(heading, bg = "#ffca18", text = "            SCORE           ", anchor = "w", font = ('times', 11, 'bold'))
+        l3 = Label(heading, bg = "#ffca18", text = "   BONUS           ", anchor = "w", font = ('times', 11, 'bold'))
         l3.grid(row = 0, column = 5, sticky = "W")
-        l4 = Label(heading, bg = "#ffca18", text = "      BONUS       ", anchor = "w", font = ('times', 11, 'bold'))
+        l4 = Label(heading, bg = "#ffca18", text = "    SCORE                  ", anchor = "w", font = ('times', 11, 'bold'))
         l4.grid(row = 0, column = 7, sticky = "W")
         
         self.cv = Canvas(self.subframe, bg = "#b97a56", height = 300, width = 600)
@@ -163,6 +163,8 @@ class LeaderBoard(Frame):
         self.frame.update()
 
         import Summary_Generator
+
+        Summary_Generator.runweb()
 
         self.hyplnk.config(text = "Generate Summary")
         self.frame.update()
