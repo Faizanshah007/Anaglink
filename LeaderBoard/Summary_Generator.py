@@ -36,7 +36,7 @@ html2 = str()
 for i in range(5):
     html2 = html2 + """<tr>"""
     for j in range(5):
-        html2 = html2 + """<td height = "30"><a href = "https://en.wiktionary.org/wiki/""" + str(anagselec[(i * 5 + j)]) + """">""" + str(anagselec[(i * 5 + j)]) + """</a></td>"""
+        html2 = html2 + """<td height = "30"><a href = "https://en.wiktionary.org/wiki/""" + str(anagselec[(i * 5 + j)]) + """" target="_blank"">""" + str(anagselec[(i * 5 + j)]) + """</a></td>"""
     html2 = html2 + """</tr>"""
 
 html3 = """
